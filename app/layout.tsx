@@ -45,6 +45,7 @@ export default function RootLayout({
       <head>
         <meta name="google-site-verification" content="sHNywcKkMw-BmZEqQ8r7fXYO62y-0mZohYydozrhvQw" />
         <meta name="google-adsense-account" content="ca-pub-8123007670953472" />
+        <link rel="alternate" type="application/rss+xml" title="나눠줌 RSS Feed" href="/rss.xml" />
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8123007670953472"
