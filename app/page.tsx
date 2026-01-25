@@ -49,7 +49,7 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-background p-4 md:p-8">
+    <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 md:p-8">
       <div className="mx-auto max-w-2xl space-y-6">
         <Header />
 
