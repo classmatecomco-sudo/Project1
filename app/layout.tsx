@@ -44,6 +44,7 @@ export default function RootLayout({
     <html lang="ko">
       <head>
         <meta name="google-site-verification" content="sHNywcKkMw-BmZEqQ8r7fXYO62y-0mZohYydozrhvQw" />
+        <meta name="naver-site-verification" content="b508e243c48f6c34ac5f72a3f25d251e3e8a23af" />
         <meta name="google-adsense-account" content="ca-pub-8123007670953472" />
         <link rel="alternate" type="application/rss+xml" title="나눠줌 RSS Feed" href="/rss.xml" />
         <script
