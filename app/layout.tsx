@@ -8,8 +8,14 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: '나눠줌 - 숙제 분배기',
-  description: '싸움 안 나게 숙제 나눠줌',
+  description: '조별과제와 팀 프로젝트에서 공정하게 숙제를 분배하는 무료 도구. 갈등 없이 효율적으로 협업하세요.',
+  keywords: '숙제 분배, 조별과제, 팀 프로젝트, 공정 분배, 과제 관리, 협업 도구',
   generator: 'v0.app',
+  openGraph: {
+    title: '나눠줌 - 숙제 분배기',
+    description: '조별과제와 팀 프로젝트에서 공정하게 숙제를 분배하는 무료 도구',
+    type: 'website',
+  },
   icons: {
     icon: [
       {
