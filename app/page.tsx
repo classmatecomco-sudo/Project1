@@ -7,6 +7,7 @@ import { TaskInput } from "@/components/task-input"
 import { DistributeButton } from "@/components/distribute-button"
 import { ResultsSection } from "@/components/results-section"
 import { UsageLimit } from "@/components/usage-limit"
+import { BlogLink } from "@/components/blog-link"
 
 export default function Home() {
   const [students, setStudents] = useState<string[]>([])
@@ -71,6 +72,8 @@ export default function Home() {
           isLocked={isLocked}
           onUnlock={handleUnlock}
         />
+
+        <BlogLink />
       </div>
     </main>
   )

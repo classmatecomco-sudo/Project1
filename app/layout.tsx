@@ -35,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="ko">
       <head>
         <meta name="google-adsense-account" content="ca-pub-8123007670953472" />
         <script
