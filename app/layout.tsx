@@ -43,6 +43,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
+        <meta name="google-site-verification" content="sHNywcKkMw-BmZEqQ8r7fXYO62y-0mZohYydozrhvQw" />
         <meta name="google-adsense-account" content="ca-pub-8123007670953472" />
         <script
           async
