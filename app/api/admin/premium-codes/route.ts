@@ -24,14 +24,15 @@ function saveDb(db: any) {
   fs.writeFileSync(DB_PATH, JSON.stringify(db, null, 2), 'utf8')
 }
 
-// 코드 생성
-function generateRedeemCode(length = 16) {
+// 코드 생성 (8자리)
+function generateRedeemCode(length = 8) {
   const charset = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
   const bytes = crypto.randomBytes(length)
   let code = ''
   for (let i = 0; i < length; i++) {
     code += charset[bytes[i] % charset.length]
   }
+  // 8자리 코드는 4-4 형식으로 표시
   return code.match(/.{1,4}/g)?.join('-') || code
 }
 
@@ -63,7 +64,7 @@ export async function GET(request: NextRequest) {
   const created = []
 
   for (let i = 0; i < n; i++) {
-    const plain = generateRedeemCode(16)
+    const plain = generateRedeemCode(8)
     const codeHash = hashCode(plain)
     const id = crypto.randomUUID()
     db.codes.push({
@@ -100,7 +101,7 @@ export async function POST(request: NextRequest) {
   const created = []
 
   for (let i = 0; i < n; i++) {
-    const plain = generateRedeemCode(16)
+    const plain = generateRedeemCode(8)
     const codeHash = hashCode(plain)
     const id = crypto.randomUUID()
     db.codes.push({
