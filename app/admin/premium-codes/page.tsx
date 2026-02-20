@@ -113,24 +113,6 @@ export default function PremiumCodesPage() {
         )}
       </div>
 
-      <div style={{ marginBottom: '1rem', textAlign: 'center' }}>
-        <button
-          onClick={generateCodes}
-          disabled={loading}
-          style={{
-            padding: '0.5rem 1.5rem',
-            fontSize: '1rem',
-            backgroundColor: loading ? '#9ca3af' : '#3b82f6',
-            color: 'white',
-            border: 'none',
-            borderRadius: '999px',
-            cursor: loading ? 'not-allowed' : 'pointer',
-          }}
-        >
-          {loading ? '다시 생성 중...' : '코드 다시 생성'}
-        </button>
-      </div>
-
       {error && (
         <div
           style={{

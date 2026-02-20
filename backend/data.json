@@ -7,6 +7,14 @@
       "createdAt": "2026-02-20T12:34:55.486Z",
       "passwordHash": "48f00dc4970f8e00de5f7891997bb8b3:1a7b841cf29f69528a0f0b748cc1c957bb0319b0f7ce7f5822d227b4030e9ce440299a6f6885ecf1f420cbb4cb1e1faf71da7f703b24c18336a9ac1df289b231",
       "isLifetimePremium": true
+    },
+    {
+      "id": "7b08e54b-f8a7-48a4-bb4b-d6567bf535db",
+      "email": "1234@1234",
+      "name": "1234",
+      "createdAt": "2026-02-20T12:54:15.271Z",
+      "passwordHash": "c4150cc9d4cfff7ecf68d0503218953d:6e71f960fb85412061eb200b0e03759cd06d28b71012cb34e4d369bec9d9feca9f64e1a261670c3f6713bba46245520fe78fd61dcb0608b5e32556bbc8e81085",
+      "isLifetimePremium": false
     }
   ],
   "codes": [
@@ -924,6 +932,206 @@
       "id": "2800f707-360f-49fa-a45a-2e28e63259ad",
       "codeHash": "2d590636fe7eab4dd7128647fbc67dbebc79151da7afbb74b2cd827d0640a831",
       "createdAt": "2026-02-20T12:51:21.609Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "204e5231-8a7a-41b5-9062-3e8e61ffa18e",
+      "codeHash": "4440de55a3f13fcbd6bfc91b285fd2086a37e947bdd75bfe09d7ddef4345e1f7",
+      "createdAt": "2026-02-20T12:53:31.724Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "cc5a5d67-7b0c-4249-a0a6-c6cdbe410a50",
+      "codeHash": "b0fc94ca7bdb2a140cb9052b6f2387bd21cf47af95e202fd4f56f1cb5abc436c",
+      "createdAt": "2026-02-20T12:53:32.290Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "2c5f53b0-fbde-4814-92a5-fd2424202974",
+      "codeHash": "256813f0cf084e2eb4a74d31f523a7993b50e3bc7f98b5ec2f1e7aef507f6204",
+      "createdAt": "2026-02-20T12:53:32.444Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "e3e2b45b-c4f1-4aaf-82b7-6c4c1a254191",
+      "codeHash": "412674870afc388ec5fa26b52379d902993005dafa60c2b158e53110cbc59770",
+      "createdAt": "2026-02-20T12:53:32.600Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "3f888f62-af18-4883-9060-0e54822901fc",
+      "codeHash": "dd357d17b06c5bd4135baf4338311d8d28c70598fee0f7fbe102b9f1b094344a",
+      "createdAt": "2026-02-20T12:53:32.764Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "1553a90e-4e38-47d2-a698-607f137d1bbb",
+      "codeHash": "739e48b76e3166111972d498557099d79da0bf9e6f4832aba3ce38c815515086",
+      "createdAt": "2026-02-20T12:53:32.924Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "281da4b5-fa38-4a1d-b213-efac99ae44f5",
+      "codeHash": "c311f154e2bf12f0e617577eba7a43befe9f8957f0425a3165176ba0efff9a4c",
+      "createdAt": "2026-02-20T12:53:33.113Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "aed1038b-4a38-40af-ba63-1859c73cbd34",
+      "codeHash": "e47768352cf86fd0110df796ebb1f807e880b735dd9d62d310a45106c888cb4c",
+      "createdAt": "2026-02-20T12:53:33.263Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "a4e30606-50e6-43eb-89ca-3fc879fdfc6c",
+      "codeHash": "830da39801be50d0eaea9320a64a2672634e09c7455676a18cb227baf295478c",
+      "createdAt": "2026-02-20T12:53:33.422Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "89440db1-b5a2-4d87-8a93-551918ba2855",
+      "codeHash": "408fbc41a0af70b8e2f869eb31c9cbd26678460bff1f027bdd6c8e1d7ec685bf",
+      "createdAt": "2026-02-20T12:53:33.861Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "31ae69d1-e330-4077-b1e7-134009f388ef",
+      "codeHash": "d2625959baf320d77114c0204d2b1289cf93e1dfd07d66050a87cf362f3d3adc",
+      "createdAt": "2026-02-20T12:53:34.221Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "076bc055-42ee-499f-adc3-14afa9bcb2d9",
+      "codeHash": "3bfb4cffedd0c42f32d4fd81f76d36b81ae11c5fb95143b3b03407d6b632eced",
+      "createdAt": "2026-02-20T12:53:34.583Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "567a2890-0fe7-496d-8712-3b80653c8245",
+      "codeHash": "fac26001ca079dec98254ab6ca939f81ed7c6a444acd73c4a204e53d7351e540",
+      "createdAt": "2026-02-20T12:53:34.939Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "efe9a9da-7025-4bc6-b09c-1d8d8e2d08c5",
+      "codeHash": "63e5482f98f1ccdc2a76caddeefeb27856be8013f6e8d796e444a2eb25859112",
+      "createdAt": "2026-02-20T12:53:35.282Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "51fcdc2d-ab39-4944-87ba-070793be38e7",
+      "codeHash": "5c98e681da734ea09fbbbf6e7623e347b2ea70281d81c9fc58a165198f5b46e3",
+      "createdAt": "2026-02-20T12:53:35.431Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "221e49f6-5fe9-48ae-9c9f-854f2b5ab61e",
+      "codeHash": "3f02a8eb68e5f77b3681cd54c915f31f6695c13b84fe7041cb09d39134f1ea0f",
+      "createdAt": "2026-02-20T12:53:35.597Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "00203995-288d-4889-a27c-d9109d179fa4",
+      "codeHash": "b6cfe3ddeb5016692c6f09a7ff7bf8fbecf113fa5eec82e739225a5ca0b21086",
+      "createdAt": "2026-02-20T12:53:35.756Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "e45b3fa9-3be7-4d3c-b96c-b9ea1979a049",
+      "codeHash": "f611172e2acc94c630f5b56fcc2b3dbcfffb77d6f09d11fd3b2b20b83e4dea6b",
+      "createdAt": "2026-02-20T12:53:35.919Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "091edcf4-a1c5-4acb-9703-e19d239770df",
+      "codeHash": "4e74bba55b3091fa9678e192a7d179f7b414381e389ed3510bd81039d096b36d",
+      "createdAt": "2026-02-20T12:53:36.082Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "bc7baae3-b919-4725-a0c5-f939250ab22d",
+      "codeHash": "797fd678c74213b661fd5545e68e4a95d5cdc8a70a39e7a1f86e308715c37e91",
+      "createdAt": "2026-02-20T12:53:36.412Z",
       "expiresAt": null,
       "redeemed": false,
       "redeemedByUser": null,
