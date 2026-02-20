@@ -121,6 +121,24 @@ function redeemRateLimit(req, res, next) {
 const app = express();
 app.use(express.json());
 
+// 로컬 개발용 CORS (Next dev: http://localhost:3000 -> API: http://localhost:4000)
+const ALLOWED_ORIGINS = (process.env.CORS_ORIGINS || "http://localhost:3000")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
+
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (origin && ALLOWED_ORIGINS.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Vary", "Origin");
+  }
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
+  if (req.method === "OPTIONS") return res.sendStatus(204);
+  next();
+});
+
 // 회원가입
 app.post("/auth/signup", (req, res) => {
   const { email, password, name } = req.body || {};

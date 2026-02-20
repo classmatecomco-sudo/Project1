@@ -7,6 +7,8 @@ interface Code {
   code: string
 }
 
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:4000'
+
 export default function PremiumCodesPage() {
   const [count, setCount] = useState(1)
   const [codes, setCodes] = useState<Code[]>([])
@@ -17,15 +19,9 @@ export default function PremiumCodesPage() {
     setLoading(true)
     setError(null)
     try {
-      // API 라우트가 작동하지 않을 경우를 대비해 백엔드 서버로도 시도
-      let response
-      try {
-        // 먼저 Next.js API 라우트 시도
-        response = await fetch(`/api/admin/premium-codes?count=${count}`)
-      } catch (e) {
-        // 실패하면 백엔드 서버(포트 4000)로 시도
-        response = await fetch(`http://localhost:4000/admin/premium-codes?count=${count}`)
-      }
+      // next.config.ts에 output: 'export'가 있어 Next API 라우트는 동작하지 않음
+      // 따라서 백엔드(4000)로만 호출
+      const response = await fetch(`${API_BASE}/admin/premium-codes?count=${count}`)
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({ error: 'Unknown error' }))

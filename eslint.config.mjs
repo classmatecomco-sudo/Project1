@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Backend example server (Node/Express) - not part of Next lint
+    "backend/**",
   ]),
 ]);
 

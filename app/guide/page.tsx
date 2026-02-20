@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 export const metadata = {
   title: '조별과제 공정 분배 가이드 - 나눠줌',
   description: '조별과제나 팀 프로젝트에서 공정하게 업무를 분배하는 방법과 실전 팁을 알아보세요. 갈등 없이 효율적으로 협업하는 비결을 공개합니다.',
@@ -9,12 +11,9 @@ export default function GuidePage() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8 px-4">
       <article className="mx-auto max-w-3xl">
         <div className="mb-6">
-          <a
-            href="/"
-            className="mb-4 inline-block text-indigo-600 hover:text-indigo-700"
-          >
+          <Link href="/" className="mb-4 inline-block text-indigo-600 hover:text-indigo-700">
             ← 홈으로
-          </a>
+          </Link>
           <h1 className="mb-4 text-4xl font-bold text-gray-800">
             조별과제 공정 분배 가이드: 갈등 없이 숙제 나누는 완벽한 방법
           </h1>
@@ -87,12 +86,9 @@ export default function GuidePage() {
         </div>
 
         <div className="mt-8 text-center">
-          <a
-            href="/"
-            className="inline-block rounded-lg bg-indigo-500 px-6 py-2 text-white hover:bg-indigo-600"
-          >
+          <Link href="/" className="inline-block rounded-lg bg-indigo-500 px-6 py-2 text-white hover:bg-indigo-600">
             숙제 분배기 사용하기
-          </a>
+          </Link>
         </div>
       </article>
     </div>
