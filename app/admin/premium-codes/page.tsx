@@ -1,6 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+/* eslint react-hooks/set-state-in-effect: "off" */
+
+import { useEffect, useState } from 'react'
 
 interface Code {
   id: string
@@ -10,18 +12,19 @@ interface Code {
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:4000'
 
 export default function PremiumCodesPage() {
-  const [count, setCount] = useState(1)
   const [codes, setCodes] = useState<Code[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [copied, setCopied] = useState(false)
 
   const generateCodes = async () => {
     setLoading(true)
     setError(null)
     try {
+      setCopied(false)
       // next.config.ts에 output: 'export'가 있어 Next API 라우트는 동작하지 않음
-      // 따라서 백엔드(4000)로만 호출
-      const response = await fetch(`${API_BASE}/admin/premium-codes?count=${count}`)
+      // 따라서 백엔드(4000)로만 호출, 항상 1개 생성
+      const response = await fetch(`${API_BASE}/admin/premium-codes?count=1`)
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({ error: 'Unknown error' }))
@@ -43,43 +46,88 @@ export default function PremiumCodesPage() {
     }
   }
 
+  useEffect(() => {
+    // 페이지 진입 시 자동으로 코드 1개 생성
+    void generateCodes()
+  }, [])
+
+  const singleCode = codes[0]?.code ?? ''
+
+  const handleCopy = async () => {
+    if (!singleCode) return
+    try {
+      await navigator.clipboard.writeText(singleCode)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1500)
+    } catch {
+      setCopied(false)
+    }
+  }
+
   return (
     <div style={{ padding: '2rem', maxWidth: '800px', margin: '0 auto' }}>
-      <h1>프리미엄 코드 생성</h1>
-      
-      <div style={{ marginBottom: '1rem' }}>
-        <label style={{ display: 'block', marginBottom: '0.5rem' }}>
-          생성할 코드 개수:
-        </label>
-        <input
-          type="number"
-          min="1"
-          max="1000"
-          value={count}
-          onChange={(e) => setCount(Math.max(1, Math.min(1000, parseInt(e.target.value) || 1)))}
-          style={{
-            padding: '0.5rem',
-            fontSize: '1rem',
-            border: '1px solid #ccc',
-            borderRadius: '4px',
-            width: '200px',
-          }}
-        />
+      <h1 style={{ textAlign: 'center', marginBottom: '1.5rem' }}>프리미엄 코드</h1>
+
+      <div
+        style={{
+          marginBottom: '1.5rem',
+          padding: '2rem 1rem',
+          backgroundColor: '#0f172a',
+          borderRadius: '12px',
+          textAlign: 'center',
+          color: '#e5e7eb',
+          boxShadow: '0 10px 25px rgba(15,23,42,0.4)',
+        }}
+      >
+        {singleCode ? (
+          <>
+            <div
+              style={{
+                fontSize: '2.5rem',
+                fontWeight: 'bold',
+                letterSpacing: '0.3em',
+                marginBottom: '1rem',
+              }}
+            >
+              {singleCode}
+            </div>
+            <button
+              onClick={handleCopy}
+              style={{
+                padding: '0.5rem 1.5rem',
+                fontSize: '1rem',
+                backgroundColor: '#22c55e',
+                color: 'white',
+                border: 'none',
+                borderRadius: '999px',
+                cursor: 'pointer',
+              }}
+            >
+              {copied ? '복사됨!' : '코드 복사하기'}
+            </button>
+          </>
+        ) : (
+          <div style={{ fontSize: '1rem' }}>
+            {loading ? '코드 생성 중...' : '코드를 불러오지 못했습니다. 다시 시도해주세요.'}
+          </div>
+        )}
+      </div>
+
+      <div style={{ marginBottom: '1rem', textAlign: 'center' }}>
         <button
           onClick={generateCodes}
           disabled={loading}
           style={{
-            marginLeft: '1rem',
-            padding: '0.5rem 1rem',
+            padding: '0.5rem 1.5rem',
             fontSize: '1rem',
-            backgroundColor: loading ? '#ccc' : '#0070f3',
+            backgroundColor: loading ? '#9ca3af' : '#3b82f6',
             color: 'white',
             border: 'none',
-            borderRadius: '4px',
+            borderRadius: '999px',
             cursor: loading ? 'not-allowed' : 'pointer',
           }}
         >
-          {loading ? '생성 중...' : '코드 생성'}
+          {loading ? '다시 생성 중...' : '코드 다시 생성'}
         </button>
       </div>
 
@@ -97,56 +145,6 @@ export default function PremiumCodesPage() {
           오류: {error}
         </div>
       )}
-
-      {codes.length > 0 && (
-        <div>
-          <h2>생성된 코드 ({codes.length}개)</h2>
-          <div
-            style={{
-              backgroundColor: '#f5f5f5',
-              padding: '1rem',
-              borderRadius: '4px',
-              fontFamily: 'monospace',
-            }}
-          >
-            {codes.map((item, index) => (
-              <div
-                key={item.id}
-                style={{
-                  padding: '0.5rem',
-                  marginBottom: '0.5rem',
-                  backgroundColor: 'white',
-                  border: '1px solid #ddd',
-                  borderRadius: '4px',
-                }}
-              >
-                <strong>{index + 1}.</strong> {item.code}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      <div style={{ marginTop: '2rem', fontSize: '0.9rem', color: '#666', padding: '1rem', backgroundColor: '#f0f9ff', borderRadius: '8px', border: '1px solid #bae6fd' }}>
-        <p style={{ marginBottom: '0.5rem', fontWeight: 'bold', color: '#0369a1' }}>
-          ⚠️ 백엔드 서버 실행 필요
-        </p>
-        <p style={{ marginBottom: '0.5rem' }}>
-          코드 생성을 사용하려면 백엔드 서버가 실행 중이어야 합니다.
-        </p>
-        <p style={{ marginBottom: '0.5rem' }}>
-          <strong>별도 터미널에서 실행:</strong>
-        </p>
-        <code style={{ display: 'block', padding: '0.75rem', backgroundColor: '#1e293b', color: '#f1f5f9', borderRadius: '4px', fontFamily: 'monospace', marginBottom: '0.5rem' }}>
-          npm run server
-        </code>
-        <p style={{ marginTop: '0.5rem', fontSize: '0.85rem' }}>
-          서버가 실행되면 <code style={{ backgroundColor: '#e2e8f0', padding: '0.2rem 0.4rem', borderRadius: '3px' }}>http://localhost:4000</code>에서 응답합니다.
-        </p>
-        <p style={{ marginTop: '0.5rem', fontSize: '0.85rem' }}>
-          생성된 코드는 <code style={{ backgroundColor: '#e2e8f0', padding: '0.2rem 0.4rem', borderRadius: '3px' }}>backend/data.json</code> 파일에 저장됩니다.
-        </p>
-      </div>
     </div>
   )
 }

@@ -1,5 +1,14 @@
 {
-  "users": [],
+  "users": [
+    {
+      "id": "16c48699-67e9-4a87-98e9-31c7596ed375",
+      "email": "asdf@asdf",
+      "name": "asdf",
+      "createdAt": "2026-02-20T12:34:55.486Z",
+      "passwordHash": "48f00dc4970f8e00de5f7891997bb8b3:1a7b841cf29f69528a0f0b748cc1c957bb0319b0f7ce7f5822d227b4030e9ce440299a6f6885ecf1f420cbb4cb1e1faf71da7f703b24c18336a9ac1df289b231",
+      "isLifetimePremium": true
+    }
+  ],
   "codes": [
     {
       "id": "53e0deca-bb75-409b-80d5-990fb0d8489e",
@@ -800,7 +809,137 @@
       "redeemedByUser": null,
       "redeemedAt": null,
       "failedAttempts": 0
+    },
+    {
+      "id": "b721381e-e536-40f5-abd6-266a246568e6",
+      "codeHash": "3defb7e2fa1cd6fa32d248a4ffda1d9a0b9219f00f1ee77cb8097822c86d1ca1",
+      "createdAt": "2026-02-20T12:34:09.048Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "7c0aa56d-3678-4e15-bd0d-46f4c43a5fce",
+      "codeHash": "a54e77e69ce7b775a170d51b25728cd944dd1daa65a9d9d24621d32818025dd9",
+      "createdAt": "2026-02-20T12:34:09.049Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "5ae1f3e6-5b7a-4de2-8098-e0d705463e18",
+      "codeHash": "ac3f3b121d77c366ae044b8143c81975c51847b2ab57b2532386ccacbe52ada8",
+      "createdAt": "2026-02-20T12:34:09.049Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "dbf44374-8c44-4bf7-88c2-084dc55b1b33",
+      "codeHash": "7604bdad595c36783bc9ba107b8e885776d1ddf5341329489c308c536030ddfd",
+      "createdAt": "2026-02-20T12:34:09.049Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "2007b8b7-a025-47d7-99c2-13ed0c6d9f0c",
+      "codeHash": "01e148b5c6bb1dbaa8bf05bab2ef834969d1c0c5ee92190a9475fa9dfaead6ba",
+      "createdAt": "2026-02-20T12:34:09.049Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "c7db074a-dcda-4f7e-843c-77b84f3d93fd",
+      "codeHash": "94e5422ae24da18c3c212271e88ebb3ad433127f91bc2a755f9e3faa511e9f5f",
+      "createdAt": "2026-02-20T12:34:09.049Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "b0f9f649-ca8d-4930-8f42-6db047bdea74",
+      "codeHash": "029c5b0f04548554bdb1a749ebe477f4fe0ec0236f5f8d74fd342e46b2ae990c",
+      "createdAt": "2026-02-20T12:34:09.049Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "51b63e37-239e-4402-9e99-88dd35381a0a",
+      "codeHash": "f326d6d7cad6bec36388032237706758747b7955041f0ea5f6e24f7bf27a7091",
+      "createdAt": "2026-02-20T12:34:09.049Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "03159ab2-c859-4dd2-a60a-ae1762a4cb7d",
+      "codeHash": "8444674c253309426fae18c377252b4449b2f54be1c1dccbf1498a6d157e04bb",
+      "createdAt": "2026-02-20T12:34:09.049Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "91bd7876-8571-4bb7-8552-eebda6fd040c",
+      "codeHash": "1f679815512b4f1017548c72b4dab0c49183c4b831578b0c66b8124cfbd93979",
+      "createdAt": "2026-02-20T12:34:09.050Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
+    },
+    {
+      "id": "2a6332f1-e31c-4d95-895d-0bf123794717",
+      "codeHash": "0e518b2b4dca065604be4e4038c55c1464d8681a4cd4aa72e9d53004c3b472d0",
+      "createdAt": "2026-02-20T12:34:19.887Z",
+      "expiresAt": null,
+      "redeemed": true,
+      "redeemedByUser": "16c48699-67e9-4a87-98e9-31c7596ed375",
+      "redeemedAt": "2026-02-20T12:34:59.855Z",
+      "failedAttempts": 0
+    },
+    {
+      "id": "2800f707-360f-49fa-a45a-2e28e63259ad",
+      "codeHash": "2d590636fe7eab4dd7128647fbc67dbebc79151da7afbb74b2cd827d0640a831",
+      "createdAt": "2026-02-20T12:51:21.609Z",
+      "expiresAt": null,
+      "redeemed": false,
+      "redeemedByUser": null,
+      "redeemedAt": null,
+      "failedAttempts": 0
     }
   ],
-  "premiumHistory": []
+  "premiumHistory": [
+    {
+      "id": "689b6efa-8f36-4758-a860-6c87812fcd9b",
+      "userId": "16c48699-67e9-4a87-98e9-31c7596ed375",
+      "type": "lifetime_code",
+      "meta": {
+        "codeId": "2a6332f1-e31c-4d95-895d-0bf123794717"
+      },
+      "createdAt": "2026-02-20T12:34:59.855Z"
+    }
+  ]
 }

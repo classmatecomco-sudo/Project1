@@ -134,6 +134,17 @@ function HomeInner({
       <div className="mx-auto max-w-2xl space-y-6">
         <Header />
 
+        <div className="flex justify-center">
+          <a
+            href="https://www.latpeed.com/products/wpRB3"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block rounded-full bg-amber-500 px-6 py-2 text-sm font-semibold text-white shadow hover:bg-amber-600"
+          >
+            프리미엄 사용하기
+          </a>
+        </div>
+
         {/* 프리미엄 코드 입력 섹션 */}
         {!isPremium && (
           <div className="rounded-2xl bg-gradient-to-r from-yellow-50 to-orange-50 p-6 shadow-lg border-2 border-yellow-200">
