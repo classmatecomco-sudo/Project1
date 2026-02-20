@@ -317,6 +317,37 @@ app.post("/admin/premium-codes", (req, res) => {
   });
 });
 
+// 브라우저에서 바로 확인용 (GET 링크로 JSON 표시)
+// 예: http://localhost:4000/admin/premium-codes?count=10
+app.get("/admin/premium-codes", (req, res) => {
+  const n = Number(req.query.count) || 1;
+  if (n <= 0 || n > 1000) {
+    return res
+      .status(400)
+      .json({ error: "count는 1 이상 1000 이하 정수여야 합니다." });
+  }
+  const db = loadDb();
+  const created = [];
+  for (let i = 0; i < n; i++) {
+    const plain = generateRedeemCode(16);
+    const codeHash = hashCode(plain);
+    const id = crypto.randomUUID();
+    db.codes.push({
+      id,
+      codeHash,
+      createdAt: new Date().toISOString(),
+      expiresAt: null,
+      redeemed: false,
+      redeemedByUser: null,
+      redeemedAt: null,
+      failedAttempts: 0,
+    });
+    created.push({ id, code: plain });
+  }
+  saveDb(db);
+  res.json({ codes: created });
+});
+
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`Lifetime premium server listening on http://localhost:${PORT}`);
