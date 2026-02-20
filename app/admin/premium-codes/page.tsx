@@ -31,7 +31,12 @@ export default function PremiumCodesPage() {
       const data = await response.json()
       setCodes(data.codes || [])
     } catch (err) {
-      setError(err instanceof Error ? err.message : '코드 생성 중 오류가 발생했습니다.')
+      const message = err instanceof Error ? err.message : '코드 생성 중 오류가 발생했습니다.'
+      if (message.includes('Failed to fetch') || message.includes('fetch')) {
+        setError('백엔드 서버에 연결할 수 없습니다. 터미널에서 "npm run server"를 실행했는지 확인해주세요.')
+      } else {
+        setError(message)
+      }
       setCodes([])
     } finally {
       setLoading(false)
@@ -122,16 +127,25 @@ export default function PremiumCodesPage() {
         </div>
       )}
 
-      <div style={{ marginTop: '2rem', fontSize: '0.9rem', color: '#666' }}>
-        <p>
-          <strong>참고:</strong> 생성된 코드는 백엔드 서버의 <code>backend/data.json</code> 파일에 저장됩니다.
+      <div style={{ marginTop: '2rem', fontSize: '0.9rem', color: '#666', padding: '1rem', backgroundColor: '#f0f9ff', borderRadius: '8px', border: '1px solid #bae6fd' }}>
+        <p style={{ marginBottom: '0.5rem', fontWeight: 'bold', color: '#0369a1' }}>
+          ⚠️ 백엔드 서버 실행 필요
         </p>
-        <p>
-          API 엔드포인트가 작동하지 않을 경우, 백엔드 서버를 별도로 실행하세요:
+        <p style={{ marginBottom: '0.5rem' }}>
+          코드 생성을 사용하려면 백엔드 서버가 실행 중이어야 합니다.
         </p>
-        <code style={{ display: 'block', padding: '0.5rem', backgroundColor: '#f5f5f5', borderRadius: '4px' }}>
+        <p style={{ marginBottom: '0.5rem' }}>
+          <strong>별도 터미널에서 실행:</strong>
+        </p>
+        <code style={{ display: 'block', padding: '0.75rem', backgroundColor: '#1e293b', color: '#f1f5f9', borderRadius: '4px', fontFamily: 'monospace', marginBottom: '0.5rem' }}>
           npm run server
         </code>
+        <p style={{ marginTop: '0.5rem', fontSize: '0.85rem' }}>
+          서버가 실행되면 <code style={{ backgroundColor: '#e2e8f0', padding: '0.2rem 0.4rem', borderRadius: '3px' }}>http://localhost:4000</code>에서 응답합니다.
+        </p>
+        <p style={{ marginTop: '0.5rem', fontSize: '0.85rem' }}>
+          생성된 코드는 <code style={{ backgroundColor: '#e2e8f0', padding: '0.2rem 0.4rem', borderRadius: '3px' }}>backend/data.json</code> 파일에 저장됩니다.
+        </p>
       </div>
     </div>
   )

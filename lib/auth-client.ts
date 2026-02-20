@@ -59,7 +59,11 @@ export async function signup(
     localStorage.setItem(TOKEN_KEY, data.token)
     setSession(user)
     return { user }
-  } catch {
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : ''
+    if (msg.includes('Failed to fetch') || msg.includes('fetch')) {
+      return { error: "백엔드 서버에 연결할 수 없습니다. 터미널에서 'npm run server'를 실행해주세요." }
+    }
     return { error: "서버에 연결할 수 없습니다. (백엔드 실행 필요)" }
   }
 }
@@ -87,7 +91,11 @@ export async function login(
     localStorage.setItem(TOKEN_KEY, data.token)
     setSession(user)
     return { user }
-  } catch {
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : ''
+    if (msg.includes('Failed to fetch') || msg.includes('fetch')) {
+      return { error: "백엔드 서버에 연결할 수 없습니다. 터미널에서 'npm run server'를 실행해주세요." }
+    }
     return { error: "서버에 연결할 수 없습니다. (백엔드 실행 필요)" }
   }
 }
@@ -133,7 +141,11 @@ export async function redeemPremiumCode(
     setSession(updatedUser)
 
     return { success: true, user: updatedUser }
-  } catch {
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : ''
+    if (msg.includes('Failed to fetch') || msg.includes('fetch')) {
+      return { error: "백엔드 서버에 연결할 수 없습니다. 터미널에서 'npm run server'를 실행해주세요." }
+    }
     return { error: "서버에 연결할 수 없습니다. (백엔드 실행 필요)" }
   }
 }
