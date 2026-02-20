@@ -3,6 +3,9 @@ import * as crypto from 'crypto'
 import * as fs from 'fs'
 import * as path from 'path'
 
+// 정적 사이트 생성 모드에서도 동적으로 처리하도록 설정
+export const dynamic = 'force-dynamic'
+
 // 백엔드 서버와 동일한 DB 경로 사용
 const DB_PATH = path.join(process.cwd(), 'backend', 'data.json')
 const CODE_HASH_SECRET =
