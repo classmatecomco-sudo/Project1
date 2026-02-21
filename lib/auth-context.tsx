@@ -3,11 +3,13 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from "react"
 import {
   getSession,
+  syncSessionFromSupabase,
   signup as clientSignup,
   login as clientLogin,
   logout as clientLogout,
   type User,
 } from "./auth-client"
+import { createClient } from "@/lib/supabase/client"
 
 type AuthContextValue = {
   user: User | null
@@ -27,12 +29,29 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true)
 
   const refresh = useCallback(async () => {
-    setUser(getSession())
+    const synced = await syncSessionFromSupabase()
+    setUser(synced ?? getSession())
   }, [])
 
   useEffect(() => {
-    setUser(getSession())
-    setLoading(false)
+    let mounted = true
+    const supabase = createClient()
+    syncSessionFromSupabase().then((u) => {
+      if (mounted) setUser(u ?? getSession())
+    }).finally(() => {
+      if (mounted) setLoading(false)
+    })
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(() => {
+      syncSessionFromSupabase().then((u) => {
+        if (mounted) setUser(u ?? null)
+      })
+    })
+    return () => {
+      mounted = false
+      subscription.unsubscribe()
+    }
   }, [])
 
   const login = useCallback(async (email: string, password: string) => {

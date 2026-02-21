@@ -7,7 +7,7 @@ import { TaskInput } from "@/components/task-input"
 import { DistributeButton } from "@/components/distribute-button"
 import { ResultsSection } from "@/components/results-section"
 import { UsageLimit } from "@/components/usage-limit"
-import { redeemPremiumCode } from "@/lib/auth-client"
+import { redeemPremiumCode, getToken } from "@/lib/auth-client"
 import { useAuth } from "@/lib/auth-context"
 
 export default function Home() {
@@ -46,23 +46,60 @@ function HomeInner({
   const [tasks, setTasks] = useState<string[]>([])
   const [results, setResults] = useState<{ student: string; tasks: string[] }[] | null>(null)
   const [isDistributing, setIsDistributing] = useState(false)
-  // 빌드 시 서버에서 localStorage 없음 → 기본값 사용 후 클라이언트에서 동기화
-  const [usageCount, setUsageCount] = useState(3)
+  // 하루 무료 사용 가능 횟수(로그인 사용자 기준)
+  const DAILY_FREE_LIMIT = 5
+  const [usageCount, setUsageCount] = useState(DAILY_FREE_LIMIT)
   const [isLocked, setIsLocked] = useState(false)
+  const [usageError, setUsageError] = useState<string | null>(null)
 
   useEffect(() => {
     if (typeof window === "undefined") return
+    // 비로그인 사용자는 무료 버전 사용 불가
+    if (!userExists) {
+      setUsageCount(0)
+      setIsLocked(true)
+      setUsageError(null)
+      return
+    }
     if (isPremium) {
       setUsageCount(999999)
       setIsLocked(false)
       return
     }
-    const raw = localStorage.getItem(usageKey)
-    const parsed = raw ? Number(raw) : 3
-    const count = Number.isFinite(parsed) ? Math.max(0, Math.min(3, parsed)) : 3
-    setUsageCount(count)
-    setIsLocked(count <= 0)
-  }, [isPremium, usageKey])
+    const token = getToken()
+    if (!token) {
+      setUsageCount(0)
+      setIsLocked(true)
+      setUsageError("무료 버전을 사용하려면 다시 로그인해주세요.")
+      return
+    }
+    setUsageError(null)
+    fetch("/api/usage/status", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(async (res) => {
+        const data = await res.json().catch(() => ({}))
+        if (!res.ok) {
+          setUsageCount(0)
+          setIsLocked(true)
+          setUsageError(data.error || "무료 사용량 정보를 불러오지 못했습니다.")
+          return
+        }
+        const remaining =
+          typeof data.remaining === "number"
+            ? data.remaining
+            : Math.max(0, DAILY_FREE_LIMIT - (Number(data.usedToday) || 0))
+        setUsageCount(remaining)
+        setIsLocked(remaining <= 0)
+      })
+      .catch(() => {
+        setUsageCount(0)
+        setIsLocked(true)
+        setUsageError("무료 사용량 정보를 불러오지 못했습니다.")
+      })
+  }, [isPremium, usageKey, userExists])
   const [premiumCode, setPremiumCode] = useState("")
   const [redeemLoading, setRedeemLoading] = useState(false)
   const [redeemError, setRedeemError] = useState<string | null>(null)
@@ -97,10 +134,43 @@ function HomeInner({
     setRedeemLoading(false)
   }
 
-  const handleDistribute = () => {
+  const handleDistribute = async () => {
     if (students.length === 0 || tasks.length === 0) return
+    // 로그인하지 않은 경우 무료 버전 사용 불가
+    if (!userExists) return
     // 프리미엄이 아니고 사용 횟수가 없으면 차단
     if (!isPremium && usageCount <= 0) return
+
+    // 무료 사용자의 경우 서버에 일일 사용량 차감 요청
+    if (!isPremium) {
+      const token = getToken()
+      if (!token) return
+      try {
+        const res = await fetch("/api/usage/consume", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        const data = await res.json().catch(() => ({}))
+        if (!res.ok) {
+          setUsageError(data.error || "오늘 무료 사용 횟수를 모두 사용했습니다.")
+          setUsageCount(0)
+          setIsLocked(true)
+          return
+        }
+        const remaining =
+          typeof data.remaining === "number"
+            ? data.remaining
+            : Math.max(0, DAILY_FREE_LIMIT - (Number(data.usedToday) || 0))
+        setUsageCount(remaining)
+        setIsLocked(remaining <= 0)
+      } catch {
+        setUsageError("무료 사용량을 차감하는 중 오류가 발생했습니다.")
+        return
+      }
+    }
 
     setIsDistributing(true)
     setResults(null)
@@ -118,25 +188,7 @@ function HomeInner({
 
       setResults(distribution)
       setIsDistributing(false)
-      
-      // 프리미엄이 아니면 사용 횟수 차감
-      if (!isPremium) {
-        setUsageCount((prev) => {
-          const newCount = prev - 1
-          const clamped = Math.max(0, newCount)
-          localStorage.setItem(usageKey, String(clamped))
-          if (newCount <= 0) setIsLocked(true)
-          return newCount
-        })
-      }
     }, 1500)
-  }
-
-  const handleUnlock = () => {
-    if (isPremium) return // 프리미엄은 잠금 해제 불필요
-    setIsLocked(false)
-    setUsageCount(3)
-    localStorage.setItem(usageKey, "3")
   }
 
   return (
@@ -209,25 +261,50 @@ function HomeInner({
           </div>
         )}
 
+        {!userExists && (
+          <div className="rounded-2xl bg-white p-4 shadow-lg border border-indigo-100">
+            <p className="text-center text-sm text-gray-700">
+              무료 버전을 사용하려면 로그인이 필요합니다. 로그인하면 하루 5회까지 무료로 분배할 수 있습니다.
+            </p>
+          </div>
+        )}
+
         <div className="space-y-4">
-          <StudentInput students={students} setStudents={setStudents} disabled={!isPremium && isLocked} />
-          <TaskInput tasks={tasks} setTasks={setTasks} disabled={!isPremium && isLocked} />
+          <StudentInput
+            students={students}
+            setStudents={setStudents}
+            disabled={!userExists || (!isPremium && isLocked)}
+          />
+          <TaskInput
+            tasks={tasks}
+            setTasks={setTasks}
+            disabled={!userExists || (!isPremium && isLocked)}
+          />
         </div>
 
         <DistributeButton
           onClick={handleDistribute}
-          disabled={students.length === 0 || tasks.length === 0 || (!isPremium && isLocked)}
+          disabled={
+            students.length === 0 ||
+            tasks.length === 0 ||
+            !userExists ||
+            (!isPremium && isLocked)
+          }
           isLoading={isDistributing}
         />
 
         <ResultsSection results={results} />
 
-        {!isPremium && (
-          <UsageLimit
-            remaining={usageCount}
-            isLocked={isLocked}
-            onUnlock={handleUnlock}
-          />
+        {!isPremium && userExists && (
+          <div className="space-y-2">
+            <UsageLimit
+              remaining={usageCount}
+              isLocked={isLocked}
+            />
+            {usageError && (
+              <p className="text-center text-sm text-red-600">{usageError}</p>
+            )}
+          </div>
         )}
 
         <div className="mt-8 rounded-2xl bg-white p-6 shadow-lg">
