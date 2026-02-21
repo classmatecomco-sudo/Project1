@@ -71,27 +71,36 @@ function mapToUser(
 /** Supabase 세션과 프로필을 기반으로 앱 세션 동기화 (초기 로드·auth 변경 시 사용) */
 export async function syncSessionFromSupabase(): Promise<User | null> {
   const supabase = createClient()
-  const {
-    data: { session },
-    error: sessionError,
-  } = await supabase.auth.getSession()
-  if (sessionError || !session?.user) {
+  if (!supabase) {
     setSession(null)
     return null
   }
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("name, is_lifetime_premium")
-    .eq("id", session.user.id)
-    .single()
-  const user = mapToUser(
-    session.user.id,
-    session.user.email,
-    session.user.created_at ?? new Date().toISOString(),
-    profile
-  )
-  saveSessionAndToken(user, session.access_token)
-  return user
+  try {
+    const {
+      data: { session },
+      error: sessionError,
+    } = await supabase.auth.getSession()
+    if (sessionError || !session?.user) {
+      setSession(null)
+      return null
+    }
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("name, is_lifetime_premium")
+      .eq("id", session.user.id)
+      .single()
+    const user = mapToUser(
+      session.user.id,
+      session.user.email,
+      session.user.created_at ?? new Date().toISOString(),
+      profile
+    )
+    saveSessionAndToken(user, session.access_token)
+    return user
+  } catch {
+    setSession(null)
+    return null
+  }
 }
 
 export async function signup(
@@ -100,6 +109,7 @@ export async function signup(
   name: string
 ): Promise<{ user?: User; error?: string }> {
   const supabase = createClient()
+  if (!supabase) return { error: "계정 기능이 설정되지 않았습니다." }
   const normalizedEmail = email.trim().toLowerCase()
   if (!normalizedEmail || !password || !name.trim()) {
     return { error: "이메일, 비밀번호, 이름을 모두 입력해주세요." }
@@ -147,6 +157,7 @@ export async function login(
   password: string
 ): Promise<{ user?: User; error?: string }> {
   const supabase = createClient()
+  if (!supabase) return { error: "계정 기능이 설정되지 않았습니다." }
   const normalizedEmail = email.trim().toLowerCase()
   if (!normalizedEmail || !password) {
     return { error: "이메일과 비밀번호를 입력해 주세요." }
@@ -186,11 +197,8 @@ export async function login(
 
 export function logout(): void {
   if (typeof window === "undefined") return
-  createClient()
-    .auth.signOut()
-    .finally(() => {
-      setSession(null)
-    })
+  const supabase = createClient()
+  if (supabase) supabase.auth.signOut().finally(() => setSession(null))
   setSession(null)
 }
 

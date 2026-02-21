@@ -36,6 +36,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     let mounted = true
     const supabase = createClient()
+    if (!supabase) {
+      setUser(getSession())
+      setLoading(false)
+      return
+    }
     syncSessionFromSupabase().then((u) => {
       if (mounted) setUser(u ?? getSession())
     }).finally(() => {
