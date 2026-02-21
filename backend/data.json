@@ -14,7 +14,15 @@
       "name": "1234",
       "createdAt": "2026-02-20T12:54:15.271Z",
       "passwordHash": "c4150cc9d4cfff7ecf68d0503218953d:6e71f960fb85412061eb200b0e03759cd06d28b71012cb34e4d369bec9d9feca9f64e1a261670c3f6713bba46245520fe78fd61dcb0608b5e32556bbc8e81085",
-      "isLifetimePremium": false
+      "isLifetimePremium": true
+    },
+    {
+      "id": "80d93760-8c7a-4eec-99c4-ef6ea74c062e",
+      "email": "butter0057@naver.com",
+      "name": "peka",
+      "createdAt": "2026-02-20T12:58:08.780Z",
+      "passwordHash": "ac0593943453e52f8e5abe378af8f0df:0715774f613cc2684a9a704de33e86a359738b935f5d36c1ce87b0bd3185478b66a62b86eaa95b7819efc219640a01505ebbce99f8b7a35462123967d28ad871",
+      "isLifetimePremium": true
     }
   ],
   "codes": [
@@ -1133,9 +1141,19 @@
       "codeHash": "797fd678c74213b661fd5545e68e4a95d5cdc8a70a39e7a1f86e308715c37e91",
       "createdAt": "2026-02-20T12:53:36.412Z",
       "expiresAt": null,
-      "redeemed": false,
-      "redeemedByUser": null,
-      "redeemedAt": null,
+      "redeemed": true,
+      "redeemedByUser": "7b08e54b-f8a7-48a4-bb4b-d6567bf535db",
+      "redeemedAt": "2026-02-20T12:57:45.050Z",
+      "failedAttempts": 0
+    },
+    {
+      "id": "a059cc6d-d370-4878-88c2-cc2e84d7021c",
+      "codeHash": "13c27fb1e6c36947f2b5ce3b0ea374c4fe6b6f70c79de4c16e52875a440661ee",
+      "createdAt": "2026-02-20T12:58:21.149Z",
+      "expiresAt": null,
+      "redeemed": true,
+      "redeemedByUser": "80d93760-8c7a-4eec-99c4-ef6ea74c062e",
+      "redeemedAt": "2026-02-20T12:58:25.143Z",
       "failedAttempts": 0
     }
   ],
@@ -1148,6 +1166,24 @@
         "codeId": "2a6332f1-e31c-4d95-895d-0bf123794717"
       },
       "createdAt": "2026-02-20T12:34:59.855Z"
+    },
+    {
+      "id": "b6ba80b7-b517-45c3-b237-9949a80708af",
+      "userId": "7b08e54b-f8a7-48a4-bb4b-d6567bf535db",
+      "type": "lifetime_code",
+      "meta": {
+        "codeId": "bc7baae3-b919-4725-a0c5-f939250ab22d"
+      },
+      "createdAt": "2026-02-20T12:57:45.050Z"
+    },
+    {
+      "id": "4d2f9392-137e-4b33-a0a3-57a0a8d658b9",
+      "userId": "80d93760-8c7a-4eec-99c4-ef6ea74c062e",
+      "type": "lifetime_code",
+      "meta": {
+        "codeId": "a059cc6d-d370-4878-88c2-cc2e84d7021c"
+      },
+      "createdAt": "2026-02-20T12:58:25.143Z"
     }
   ]
 }
