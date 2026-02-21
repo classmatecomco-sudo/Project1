@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Header } from "@/components/header"
 import { StudentInput } from "@/components/student-input"
 import { TaskInput } from "@/components/task-input"
@@ -46,13 +46,23 @@ function HomeInner({
   const [tasks, setTasks] = useState<string[]>([])
   const [results, setResults] = useState<{ student: string; tasks: string[] }[] | null>(null)
   const [isDistributing, setIsDistributing] = useState(false)
-  const [usageCount, setUsageCount] = useState(() => {
-    if (isPremium) return 999999
+  // 빌드 시 서버에서 localStorage 없음 → 기본값 사용 후 클라이언트에서 동기화
+  const [usageCount, setUsageCount] = useState(3)
+  const [isLocked, setIsLocked] = useState(false)
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    if (isPremium) {
+      setUsageCount(999999)
+      setIsLocked(false)
+      return
+    }
     const raw = localStorage.getItem(usageKey)
     const parsed = raw ? Number(raw) : 3
-    return Number.isFinite(parsed) ? Math.max(0, Math.min(3, parsed)) : 3
-  })
-  const [isLocked, setIsLocked] = useState(() => (!isPremium ? usageCount <= 0 : false))
+    const count = Number.isFinite(parsed) ? Math.max(0, Math.min(3, parsed)) : 3
+    setUsageCount(count)
+    setIsLocked(count <= 0)
+  }, [isPremium, usageKey])
   const [premiumCode, setPremiumCode] = useState("")
   const [redeemLoading, setRedeemLoading] = useState(false)
   const [redeemError, setRedeemError] = useState<string | null>(null)

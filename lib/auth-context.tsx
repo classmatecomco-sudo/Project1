@@ -1,6 +1,6 @@
 "use client"
 
-import React, { createContext, useCallback, useContext, useState } from "react"
+import React, { createContext, useCallback, useContext, useEffect, useState } from "react"
 import {
   getSession,
   signup as clientSignup,
@@ -23,11 +23,16 @@ const AuthContext = createContext<AuthContextValue | null>(null)
 export type { User }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(() => getSession())
-  const loading = false
+  const [user, setUser] = useState<User | null>(null)
+  const [loading, setLoading] = useState(true)
 
   const refresh = useCallback(async () => {
     setUser(getSession())
+  }, [])
+
+  useEffect(() => {
+    setUser(getSession())
+    setLoading(false)
   }, [])
 
   const login = useCallback(async (email: string, password: string) => {
