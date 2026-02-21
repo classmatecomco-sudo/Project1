@@ -9,7 +9,8 @@ interface Code {
   code: string
 }
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:4000'
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? ''
+const codeGenUrl = () => (API_BASE ? `${API_BASE}/admin/premium-codes?count=1` : '/api/admin/premium-codes?count=1')
 
 export default function PremiumCodesPage() {
   const [codes, setCodes] = useState<Code[]>([])
@@ -24,7 +25,7 @@ export default function PremiumCodesPage() {
       setCopied(false)
       // next.config.ts에 output: 'export'가 있어 Next API 라우트는 동작하지 않음
       // 따라서 백엔드(4000)로만 호출, 항상 1개 생성
-      const response = await fetch(`${API_BASE}/admin/premium-codes?count=1`)
+      const response = await fetch(codeGenUrl())
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({ error: 'Unknown error' }))
@@ -36,7 +37,12 @@ export default function PremiumCodesPage() {
     } catch (err) {
       const message = err instanceof Error ? err.message : '코드 생성 중 오류가 발생했습니다.'
       if (message.includes('Failed to fetch') || message.includes('fetch')) {
-        setError('백엔드 서버에 연결할 수 없습니다. 터미널에서 "npm run server"를 실행했는지 확인해주세요.')
+        const isLocal = typeof window !== 'undefined' && /localhost|127\.0\.0\.1/.test(window.location.hostname)
+        setError(
+          isLocal
+            ? '백엔드 서버에 연결할 수 없습니다. 터미널에서 "npm run server"를 실행해주세요.'
+            : '백엔드에 연결할 수 없습니다. Vercel 배포라면 Railway 등에 백엔드를 배포한 뒤, Vercel 환경 변수에 NEXT_PUBLIC_API_BASE를 설정하고 재배포해주세요. (docs/VERCEL-BACKEND-DEPLOY.md 참고)'
+        )
       } else {
         setError(message)
       }

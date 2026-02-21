@@ -1,6 +1,10 @@
 const SESSION_KEY = "auth_session"
 const TOKEN_KEY = "auth_token"
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:4000"
+// 비어 있으면 같은 출처의 /api/* 사용 (Vercel 서버리스)
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? ""
+function apiUrl(path: string): string {
+  return API_BASE ? `${API_BASE}${path}` : `/api${path}`
+}
 
 export type User = {
   id: string
@@ -41,7 +45,7 @@ export async function signup(
   name: string
 ): Promise<{ user?: User; error?: string }> {
   try {
-    const res = await fetch(`${API_BASE}/auth/signup`, {
+    const res = await fetch(apiUrl("/auth/signup"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password, name }),
@@ -73,7 +77,7 @@ export async function login(
   password: string
 ): Promise<{ user?: User; error?: string }> {
   try {
-    const res = await fetch(`${API_BASE}/auth/login`, {
+    const res = await fetch(apiUrl("/auth/login"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
@@ -121,7 +125,7 @@ export async function redeemPremiumCode(
   }
 
   try {
-    const response = await fetch(`${API_BASE}/premium/redeem`, {
+    const response = await fetch(apiUrl("/premium/redeem"), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
